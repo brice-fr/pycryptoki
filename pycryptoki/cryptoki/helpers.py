@@ -50,6 +50,7 @@ def parse_chrystoki_conf():
     """
 
     env_conf_path = os.environ.get("ChrystokiConfigurationPath")
+    env_dll_path = os.environ.get("ChrystokiDllPath")
     conf_path = None
     if CHRYSTOKI_DLL_FILE is not None:
         # Use this value for the location of the DLL
@@ -59,6 +60,23 @@ def parse_chrystoki_conf():
     elif CHRYSTOKI_CONFIG_FILE is not None:
         conf_path = CHRYSTOKI_CONFIG_FILE
         LOG.debug("Using Chrystoki.conf location from defaults.py: %s", conf_path)
+    elif env_dll_path is not None:
+        if "win" in sys.platform:
+            env_dll_path = env_dll_path.replace("\\\\", "~").replace("~", "\\")
+        dll_path = env_dll_path.strip('\"')
+        if os.path.exists(dll_path):
+            LOG.debug(
+                "Using Chrystoki.so/dll location from environment variable "
+                "ChrystokiDllPath: %s",
+                dll_path,
+                )
+            return(dll_path)     
+        else:
+           LOG.debug(
+                " Chrystoki.so/dll location from environment variable "
+                "ChrystokiDllPath: %s could not be found",
+                dll_path,
+                )       
     elif env_conf_path is not None:
         if "win" in sys.platform:
             env_conf_path = env_conf_path.replace("\\\\", "~").replace("~", "\\") + "crystoki.ini"
