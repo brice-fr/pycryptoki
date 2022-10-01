@@ -70,6 +70,7 @@ from .aes import (
 )
 from .des import DES3CTRMechanism, DES3CBCEncryptDataMechanism, DES3ECBEncryptDataMechanism
 from .dh import ECDH1DeriveMechanism
+from .ecies import ECIESMechanism
 from .eddsa import EDDSAMechanism
 from .generic import ConcatenationDeriveMechanism, StringDataDerivationMechanism, NullMech
 from pycryptoki.mechanism.helpers import AutoMech
@@ -141,6 +142,7 @@ from ..defines import (
     CKM_XOR_BASE_AND_DATA,
     CKM_CONCATENATE_DATA_AND_BASE,
     CKM_ECDH1_DERIVE,
+    CKM_ECIES,
     CKM_AES_CTR,
     CKM_DES3_CTR,
     CKM_AES_GMAC,
@@ -223,6 +225,7 @@ MECH_LOOKUP = {
     CKM_CONCATENATE_DATA_AND_BASE: StringDataDerivationMechanism,
     CKM_DES2_DUKPT_IPEK: StringDataDerivationMechanism,
     CKM_ECDH1_DERIVE: ECDH1DeriveMechanism,
+    CKM_ECIES: ECIESMechanism,
     CKM_PRF_KDF: PRFKDFDeriveMechanism,
     CKM_EDDSA: EDDSAMechanism,
     CKM_EDDSA_NACL: EDDSAMechanism,
